@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
+.clock {
+    text-align: center;
+    margin: auto;
+    height: 20vh;
+    color: whitesmoke;
+    font-size: 5rem;
+    font-family: Orbitron, sans-serif;
+    line-height: 20.4vh;
+    display: flex;
+    position: relative;
+    /*background: green;*/
+    overflow: hidden;
+  }
+  
+  .clock::before, .clock::after {
+    content: '';
+    width: 7ch;
+    height: 3vh;
+    background: linear-gradient(to top, transparent, rgba(0, 0, 0, 0));
+    position: absolute;
+    z-index: 2;
+  }
+  
+  .clock::after {
+    bottom: 0;
+    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0));
+  }
+  
+  .clock > div {
+    display: flex;
+  }
+  
+  .tick {
+    line-height: 17vh;
+  }
+  
+  .tick-hidden {
+    opacity: 0;
+  }
+  
+  .move {
+    animation: move linear 1s infinite;
+  }
+  
+  @keyframes move {
+    from {
+      transform: translateY(0vh);
+    }
+    to {
+      transform: translateY(-20vh);
+    }
+  }
+  
+  
