@@ -1,44 +1,76 @@
 import { useState, useEffect } from "react";
 import './Clock.css';
 
+function getTime(d){
+
+    const ret = {};
+//secs
+    const secs = d.getSeconds().toString().padStart(2,'0');
+    ret.firstSecond = secs.charAt(0);
+    ret.secondSecond = secs.charAt(1);
+//mins
+    const mins = d.getMinutes().toString().padStart(2,'0');
+    ret.firstMinute = mins.charAt(0);
+    ret.secondMinute = mins.charAt(1);
+//hours
+    const hours = d.getHours().toString().padStart(2,'0');
+    ret.firstHour =  hours.charAt(0);
+    ret.secondHour = hours.charAt(1);
+
+    return ret;
+};
+
 const Clock = ({country, timezone})=>{
     const t = Date.now() + 3600 * timezone * 1000;
     const dateIni = new Date(t);
+    const defaultTime = getTime(dateIni);
     const [date, setDate] = useState(dateIni);
     const [nation, setNation] = useState(country);
+//secs
+    const [firstSecond, setFirstSecond] = useState(defaultTime.firstSecond);
+    const [secondSecond, setSecondSecond] = useState(defaultTime.secondSecond);
+//mins
+    const [firstMinute, setFirstMinute] = useState(defaultTime.firstMinute);
+    const [secondMinute, setSecondMinute] = useState(defaultTime.secondMinute);
+//hours
+    const [firstHour, setFirstHour] = useState(defaultTime.firstHour);
+    const [secondHour, setSecondHour] = useState(defaultTime.secondHour);
 
-    const [firstSecond, setFirstSecond] = useState(0);
-    const [secondSecond, setSecondSecond] = useState(0);
-    const [firstMinute, setFirstMinute] = useState(0);
-    const [secondMinute, setSecondMinute] = useState(0);
-    const [firstHour, setFirstHour] = useState(0);
-    const [secondHour, setSecondHour] = useState(0);
-
-    const [firstSecondMove, setFirstSecondMove] = useState('');
+    const [move, setMove] = useState('');
 
     useEffect(() => {
        const interval = setInterval(() => {
            const time = date.getTime() + 1000;
            const d = new Date(time);
-           // secs
-           const secs = d.getSeconds().toString().padStart(2,'0');
-           setFirstSecond(secs.charAt(0));
-           if (secondSecond !== secs.charAt(1)){
-           setSecondSecond(secs.charAt(1));
-        //    setFirstSecondMove('move');
+           const defaultTime = getTime(dateIni);
+
+// secs
+           if (firstSecond !== defaultTime.firstSecond){
+           setMove('move');
+           setTimeout(()=> {
+               setFirstSecond(defaultTime.firstSecond);
+           }, 950);
+            } else {
+                setMove('');
             };
-           // min
-           const mins = d.getMinutes().toString().padStart(2,'0');
-           setFirstMinute(mins.charAt(0));
-           if( secondMinute !== mins.charAt(1)){
-           setSecondMinute(mins.charAt(1));
+            setSecondSecond(defaultTime.secondSecond);
+
+// min
+           if( firstMinute !== defaultTime.firstMinute){ 
+            setFirstMinute(defaultTime.firstMinute);    
+            };
+           if(secondMinute !== defaultTime.secondMinute){
+            setSecondMinute(defaultTime.secondMinute);
+        };
+
+// hour
+           if (firstHour !== defaultTime.firstHour){
+           setFirstHour(defaultTime.firstHour);
            };
-           // hour
-           const hours = d.getHours().toString().padStart(2,'0');
-           setFirstHour(hours.charAt(0));
-           if (secondHour !== hours.charAt(1)){
-           setSecondHour(hours.charAt(1));
+           if (secondHour !== defaultTime.secondHour){
+           setSecondHour(defaultTime.secondHour);    
            };
+
            setDate(d);
        }, 1000);
     return () => {
@@ -64,16 +96,16 @@ const Clock = ({country, timezone})=>{
   <div className="tick">:</div>
   <div className="minutes">
     <div className="first">
-      <div className="number">{firstMinute}</div>
+      <div className={"number "}>{firstMinute}</div>
     </div>
     <div className="second">
-      <div className="number">{secondMinute}</div>
+      <div className={"number "}>{secondMinute}</div>
     </div>
   </div>
   <div className="tick">:</div>
   <div className="seconds">
     <div className="first">
-      <div className={"number "}>{firstSecond}</div>
+      <div className={"number " + move}>{firstSecond}</div>
     </div>
     <div className="second infinite">
       <div className="number">{secondSecond}</div>
@@ -81,5 +113,5 @@ const Clock = ({country, timezone})=>{
   </div>
 </div>
 </>)
-}
+};
 export default Clock;
