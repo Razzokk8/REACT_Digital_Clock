@@ -25,7 +25,7 @@ const Clock = ({country, timezone})=>{
     const dateIni = new Date(t);
     const defaultTime = getTime(dateIni);
     const [date, setDate] = useState(dateIni);
-    const [nation, setNation] = useState(country);
+    const [city, setCity] = useState(country);
 //secs
     const [firstSecond, setFirstSecond] = useState(defaultTime.firstSecond);
     const [secondSecond, setSecondSecond] = useState(defaultTime.secondSecond);
@@ -81,7 +81,7 @@ const Clock = ({country, timezone})=>{
     return (
     <>
     
-    <h2>In {nation} is: { date.toLocaleDateString() + " " + new Date().toLocaleTimeString() } </h2>
+    <h2>In {city} is: { date.toLocaleDateString() + " " + new Date().toLocaleTimeString() } </h2>
     <br/>
     
     <div className="clock">

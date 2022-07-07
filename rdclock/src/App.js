@@ -9,7 +9,7 @@ function App() {
         World Digital Clock Component
         </p>
       </header>
-      <Clock country={"Germany"} timezone={0}/>
+      <Clock country={"Berlin"} timezone={0}/>
     </div>
   );
 }

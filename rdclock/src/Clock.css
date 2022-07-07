@@ -11,6 +11,7 @@
     display: flex;
     position: relative;
     overflow: hidden;
+    max-width: 100%;
   }
   
   .clock::before, .clock::after {
